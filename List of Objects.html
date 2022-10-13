@@ -23,7 +23,7 @@
 <p>
   <textarea id="inp" rows="10" cols="50"></textarea>
 </p>
-<b>JSON output</b>
+<b>ARRAY output</b>
 <pre id="out"></pre>
 <hr>
 <b>Sample code</b>
@@ -52,6 +52,7 @@ function toList(str) {
     console.table(a)
     return a
 }
+
 const PLANET = 
 `Name	Diam	Mass	Radius	Period
 Mercury	0.382	0.06	0.40	0.24
@@ -63,9 +64,9 @@ Saturn	9.449	95.20	9.54	29.46
 Uranus	4.007	14.60	19.22	84.01
 Neptune	3.883	17.20	30.06	164.80`,
 
-MOUNT = `Name	Surname	Class
+School = `Name	Surname	Class
 Mehmet 	AK	101
-Ahmet CORUT	102
+Ahmet 	OKUR	101
 Veli	YILMAZ	103
 Ahmet  	SEVER	102
 Mehmet	OKUR	100
@@ -76,7 +77,7 @@ Can	AK	101`
 
     title.innerText = document.title
     sample.innerText = toList
-    inp.value = MOUNT
+    inp.value = School
     //toList()  //array of objects
 </script>
 <script src="./List of Objects_files/navbar.js.indir"></script><nav id="navbar"><link href="./List of Objects_files/navbar.css" rel="stylesheet">
