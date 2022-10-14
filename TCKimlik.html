@@ -14,13 +14,10 @@
         border-radius: 20px;
         border: 2px solid seagreen;
         font-size: 22;
-        background: purple;
-        color: white;
+        background: blue;
+        color: black;
         text-align: center;
         padding: 10px;
-    }
-    #buton{
-        background-color: aqua;
     }
   </style>
 </head>
@@ -30,7 +27,7 @@
 <h2 id=title></h2>
 
 <input type=text id=kimlik>
-<button id="buton" onClick="increment()">97 ekleme butonu +</button>
+<button onClick="increment()">97 ekle</button>
 <p id=out></p>
 <hr />
 <b>Sample code</b>
@@ -75,8 +72,11 @@ function increment() {
     let number2r = ReverseString(number2)
     console.log(ReverseString(number2))
     let num = Number(ReverseString(number))
+    //let num2 = Number(ReverseString(number2))
     
+   // console.log(num)
     num+=97
+    //console.log(num)
     num = num.toString()
     let con = number2r.concat(num)
     console.log(con)
@@ -103,7 +103,7 @@ function verifyIBAN(s) {
     return acc == 1;
 }
 
-function verifyTC(s) { 
+function verifyTC(s) {
     if (typeof s != 'string') s = String(s)
     const E = /^[1-9][0-9]{10}$/
     if (!E.test(s)) return 'hatalı'
