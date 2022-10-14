@@ -14,10 +14,13 @@
         border-radius: 20px;
         border: 2px solid seagreen;
         font-size: 22;
-        background: blue;
-        color: black;
+        background: purple;
+        color: white;
         text-align: center;
         padding: 10px;
+    }
+    #buton{
+        background-color: aqua;
     }
   </style>
 </head>
@@ -27,7 +30,7 @@
 <h2 id=title></h2>
 
 <input type=text id=kimlik>
-<button onClick="increment()">97 ekle</button>
+<button id="buton" onClick="increment()">97 ekleme butonu +</button>
 <p id=out></p>
 <hr />
 <b>Sample code</b>
@@ -72,11 +75,8 @@ function increment() {
     let number2r = ReverseString(number2)
     console.log(ReverseString(number2))
     let num = Number(ReverseString(number))
-    //let num2 = Number(ReverseString(number2))
     
-   // console.log(num)
     num+=97
-    //console.log(num)
     num = num.toString()
     let con = number2r.concat(num)
     console.log(con)
@@ -103,24 +103,16 @@ function verifyIBAN(s) {
     return acc == 1;
 }
 
-function verifyTC(s) {
-    // ilk test için s string olmalı
+function verifyTC(s) { 
     if (typeof s != 'string') s = String(s)
-    // 11 basamaklı sayı (ilk basamak 0 olamaz)
     const E = /^[1-9][0-9]{10}$/
     if (!E.test(s)) return 'hatalı'
-
-    // şimdi number[] gerekiyor
     s = [...s].map(i => Number(i))
-    // a, b, c değerlerine bakalım
     let a=0, b=0, c=s[10]
     for (let i=0; i<9; i+=2) {
         a += s[i]; b += s[i+1]
     }
-    // (a+b)nin son basamağı c olmalı
     if ((a+b)%10 != c) return 'a+b hata'
-
-    // (8a)nın son basamağı c olmalı
     if (8*a%10 != c) return '8a hata'
     return true
 }
