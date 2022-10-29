@@ -28,18 +28,7 @@ function analyze(min=0) {
   // }
   // return a
 }
-function eventCounter(event) {
-  let a = 0;
-  for (let i = 0; i<90; i++) {
-    for (let j = 0; j<JOURNAL[İ]['events'].length; j++) {
-      if (event == JOURNAL[İ]['events'][j]) {
-        a++;
-      }
-    
-    }
-  }
-  return a;
-}
+
 function journalEvents() {
   EVENTS.clear();
   for (let entry of JOURNAL)
@@ -47,7 +36,18 @@ function journalEvents() {
       EVENTS.add(e);
 }
 
-
+function eventCounter(event) {
+  let a = 5;
+  for (let i = 0; i<90; i++) {
+    for (let j = 0; j<JOURNAL[i]['events'].length; j++) {
+      if (event == JOURNAL[i]['events'][j]) {
+        a++;
+      }
+    
+    }
+  }
+  return a;
+}
 
 class Entry {
   constructor(evt, sq) {

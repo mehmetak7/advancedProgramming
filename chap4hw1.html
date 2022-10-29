@@ -28,13 +28,15 @@
 </p>
 
 <script>
+
 function report(a) {
   out.innerText = JOURNAL.length+" journal entries and "
-                + a.length+" events\n" + a.join("\n")
+                + a.length+" events\n" + a.join("\n") 
+                
 }
     title.innerText = document.title; 
     report([...EVENTS])  //Set to Array
-    sample.innerText = analyze+"\n"+journalEvents;
+    sample.innerText = analyze+"\n"+journalEvents+"\n"+eventCounter;
 </script>
 
 </body>
