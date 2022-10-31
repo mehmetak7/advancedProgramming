@@ -19,7 +19,7 @@ function analyze(min=0) {
   return [...EVENTS]
     .map(e => ({evt: e, cor: phi(tableFor(e))}))
     .filter(x => Math.abs(x.cor) > min)
-    .map(x => x.evt+": "+x.cor.toFixed(4))
+    .map(x => x.evt+": "+x.cor.toFixed(4)+ '=' + eventCounter(x.evt))
   // let a = [];
   // for (let e of EVENTS) {
   //   let cor = phi(tableFor(e));
