@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Event Listeners</title>
+
+  <style> 
+    body { max-width: 440px; }
+	#online { color: #57a1e2; }
+  </style>
+</head>
+
+<body>
+
+<h2>Battery Status</h2>
+<div id="batarya"></div>
+<progress id="longbar" value="100" max="100"></progress>
+<span id="seviye">  100%</span>
+<h2>is Online ?</h2>
+<p id="online"></p>
+<h2>Keyboard</h2>
+<span id="modifier"></span><span id="key"></span>
+<br /><br />
+<b>Sample code</b>
+<pre id=sample>This text is not shown. Why?</pre> 
+<hr />
+
+<script>
+
+function init() {
+   
+    navigator.getBattery().then(b => {
+
+      let levelChange = () => {
+        seviye.innerText = b.level*100+'%';
+        longbar.value = 100*b.level;
+        let time = (b.charging) ? b.chargingTime :
+    	  b.dischargingTime;
+
+    
+        
+      }
+      levelChange();
+      b.onlevelchange = levelChange;
+      
+      let chargeChange = () => {
+        batarya.innerText = (b.charging) ?
+          "--> Charging" : "--> Discharging...";
+      }
+      chargeChange();
+      b.onchargingchange = chargeChange;
+    })
+    
+    online.innerText = (window.navigator.onLine)?
+      "Status --> Connected -- Online" :
+      "Status --> Disconnected -- Offline";
+   
+    
+    window.onkeydown = (evt) => {
+      if(evt.altKey){
+        modifier.innerText = "Alt ";
+      }
+      else if(evt.ctrlKey){
+        modifier.innerText = "Ctrl ";
+      }
+      else if(evt.shiftKey){
+        modifier.innerText = "Shift ";
+      }
+      key.innerText = evt.key;
+    };
+    window.addEventListener("online", () => {
+      online.innerText = "connected -- online";
+    });
+    window.addEventListener("offline", () => {
+      online.innerText = "disconnected -- offline";
+    });
+    window.onkeyup = (evt) => {
+    
+        modifier.innerText = "Last Pressed Button is --> ";
+     
+    };
+}
+    sample.innerText = init;
+    init();
+</script>
+
+</body>
+</html>
