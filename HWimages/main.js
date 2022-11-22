@@ -49,7 +49,7 @@ btnPause.addEventListener("click", function(){
             if(y<10){
                // console.log(images[i]);
             }
-            c.drawImage(images[i],300,300,300,300);
+            c.drawImage(images[i],275,275,275,275);
         },150)
         kontrol=0;
     }
@@ -61,12 +61,18 @@ btnStop.addEventListener("click", function(){
 
 btnNext.addEventListener("click", function(){
     i++;
-    c.drawImage(images[i],300,300,300,300);
+    if(i == 10){
+        i =1;
+    }
+    c.drawImage(images[i],275,275,275,275);
 });
 
 btnPrev.addEventListener("click", function(){
     i--;
-    c.drawImage(images[i],300,300,300,300);
+    if(i == 0){
+        i = 10;
+    }
+    c.drawImage(images[i],275,275,275,275);
 });
 
 btnStart.addEventListener("click", function(){
@@ -80,7 +86,7 @@ btnStart.addEventListener("click", function(){
         if(y<10){
            // console.log(images[i]);
         }
-        c.drawImage(images[i],300,300,300,300);
-    },125)
+        c.drawImage(images[i],275,275,275,275);
+    },150)
 });
 
