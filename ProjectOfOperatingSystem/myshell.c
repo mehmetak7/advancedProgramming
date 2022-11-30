@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 
 int controlProcess(char** words, int wordCnt, char** envp){
@@ -12,12 +15,6 @@ int controlProcess(char** words, int wordCnt, char** envp){
     	if(strcmp("exit",*(words)) == 0){
             printf("Cikis yapiliyor...");
             exit(0);
-        }else if(strcmp("clear",*(words)) == 0){
-            system("clear");
-            printf("\n Ekran temizlendi...\n");
-        }else if(strcmp("ls",*(words)) == 0){
-          printf("\n Dosya Listesi...\n");
-            system("ls");
         }else if(strcmp("cat",*(words)) == 0){
             int i;
             printf("cat: ");
@@ -41,6 +38,12 @@ int controlProcess(char** words, int wordCnt, char** envp){
                 perror("error\n");
                 exit(1);
             }
+        }else if(strcmp("clear",*(words)) == 0){
+            system("clear");
+            printf("\n Ekran temizlendi...\n");
+        }else if(strcmp("ls",*(words)) == 0){
+          printf("\n Dosya Listesi...\n");
+            system("ls");
         }else if(strcmp("bash",*(words)) == 0){
             //int i;
             int pid, h, status;
@@ -107,16 +110,16 @@ char** splitStr(char* str,char* c,int wordCnt){
 
 
 int main(int argc, char *argv[], char** envp){
-    int bexit;
+    int exitControlVal;
     char str[58];
     printf("myshell>> ");
     while(scanf("%[^\n]",str)==1){    
         int wordCnt=charCount(str, ' ')+1;
         char **words=splitStr(str, " ",wordCnt);
         
-        bexit=controlProcess(words, wordCnt, envp);// exit komutu girilene kadar program calismaya devam eder.
+        exitControlVal=controlProcess(words, wordCnt, envp);// exit komutu girilene kadar program calismaya devam eder.
        
-        if(bexit){
+        if(exitControlVal){
            break;        
         }
         printf("myshell>> ");

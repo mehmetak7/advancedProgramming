@@ -1,17 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 
 int main(int argc, char *argumanlar[], char **envp)
 {
-    char *yeniArgv[argc - 2];
+    char* yeniArgv[argc - 2];
     char* command = argumanlar[2];
     int j = 0;
 
     for(int i = 0; i < argc; i++)
     {
-	    printf("komut => %s \n", argumanlar[i]);
+	    printf("komut => %s\n", argumanlar[i]);
     }
     for(int i = 3; i < argc; i++)
     {
@@ -43,7 +46,7 @@ int main(int argc, char *argumanlar[], char **envp)
 
 	for(int i = 0; i < 3; i++)
 	{
-		printf("%s \n");
+		printf("\n");
 	}
 
 	printf("hata\n");

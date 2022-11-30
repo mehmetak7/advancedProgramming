@@ -2,6 +2,8 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdlib.h>
+
 
 
 int main(int argc, char *argumanlar[], char **envp)
