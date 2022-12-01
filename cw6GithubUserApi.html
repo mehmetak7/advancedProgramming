@@ -1,0 +1,129 @@
+<body>
+    
+    <h2 id="title">GitHub User Api</h2>
+    <input type="text" id="usr" value="mehmetak7" onchange="readUser()">
+    <b><p id="out" style="color: rgb(127, 171, 216)xceeded</p></b>
+    <hr>
+<b>Sample code</b>
+<pre id="sample">    async function toJSON(url) {
+        try {
+            let r = await fetch(url)
+            if (!r.ok) throw cause(r.status)
+            return await r.json()
+        } catch (e) {
+            error(e)
+        }
+    }
+    async function readUser() {
+        const URL = "https://api.github.com/users/"
+        const BR = "<br>" 
+        let u = await toJSON(URL+usr.value)
+        if (!u || !u.login) return
+        out.style.color = ''
+        out.innerHTML = ''
+     }
+
+     title.innerText = document.title
+        out.innerText = "Reading data"
+        readUser()
+
+</pre>
+
+<hr>
+    <script>
+    "use strict";
+    function error(e) {
+        out.innerText = e;
+        out.style.color = 'blue'
+        console.error(e)
+    }
+    function cause(s) {
+        switch (s) {
+            case 403:
+            return 'Rate limit exceeded...'
+            case 404:
+            return usr.value+' not found'
+            default:
+            return 'Status '+s
+        }
+    }
+    async function toJSON(url) {
+        try {
+            let r = await fetch(url)
+            if (!r.ok) throw cause(r.status)
+            return await r.json()
+        } catch (e) {
+            error(e)
+        }
+    }
+    async function readUser() {
+        const URL = "https://api.github.com/users/"
+        const BR = "<BR>" 
+        let u = await toJSON(URL+usr.value)
+        if (!u || !u.login) return
+        out.style.color = ''
+        out.innerHTML = ''
+
+        //start with a tiny image
+        let i = document.createElement("img")
+        i.src = u.avatar_url
+        out.appendChild(i)
+        let k = document.createElement("br")
+        out.appendChild(k)
+
+        //add name 
+        let s = (u.name? u.name : u.login).bold()
+        out.innerHTML += s; console.log(s)
+        out.appendChild(k)
+
+        //add user name
+        let userName=u.login
+        out.innerHTML+=userName
+        out.appendChild(k)
+        
+        //add company
+        out.appendChild(document.createElement("br"))
+        let company=u.company
+        out.innerHTML+= "Company --> " +company
+        out.appendChild(k)
+
+        //add location
+        let loc=""
+        if (u.location) loc +=u.location
+        out.innerHTML+="Location --> " + loc
+        out.appendChild(k)
+
+        //add blog
+        let blog = u.blog
+        let a = document.createElement("a")
+        a.href=blog
+        a.target="NewTab"
+        a.innerText=blog
+        out.appendChild(a)
+
+        //link
+        let h = "github.com/"+u.login
+        out.innerHTML +="Link --> "+ 
+        `<a href="https://${h}" target=NewTab>${h}</a>`
+        
+        //add repo count and repo names
+        let n = u.public_repos
+        out.innerHTML += BR+`${n} public repos`
+        if (n) {
+        let p = document.createElement("p")
+        let b = await toJSON(URL+u.login+"/repos")
+        p.innerText = b.map(x => x.name).join(", ")
+        out.appendChild(p)
+        }
+
+
+    }
+        title.innerText = document.title
+        out.innerText = "Reading data"
+        readUser()
+    </script>
+    
+    
+    
+    
+</body>
