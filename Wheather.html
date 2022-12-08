@@ -33,7 +33,7 @@
   Lat/Lon <input id="mahal" type="text" value="41 29">
 </div>
 
-<canvas id="myCanvas" width="450" height="100" style="border:7px solid #6f7fb26c; background-color:rgb(139, 249, 242);text-align: center;">
+<canvas id="canvas" width="450" height="100" style="border:7px solid #6f7fb26c; background-color:rgb(139, 249, 242);text-align: center;">
   <img id="imgCanvas"> 
 </canvas>
 
@@ -75,7 +75,7 @@ function toHM(t) {
 }
 
 window.onload = function() {
-  const c = document.getElementById("myCanvas");
+  const c = document.getElementById("canvas");
   const ctx = c.getContext("2d");
   ctx.font = "20px Georgia";
 }
@@ -127,9 +127,9 @@ async function askWeather() {
     let hh = w.main+"  "+celsius+"°", {sys} = data
     let yy = data.name+', '+sys.country
     
-    myCanvas.getContext("2d").clearRect(0,0,myCanvas.width , myCanvas.height);
-    myCanvas.getContext("2d").fillText(hh, 150,70);
-    myCanvas.getContext("2d").fillText(yy, 150,40);
+    canvas.getContext("2d").clearRect(0,0,canvas.width , canvas.height);
+    canvas.getContext("2d").fillText(hh, 150,70);
+    canvas.getContext("2d").fillText(yy, 150,40);
     
     lat = data.coord.lat; lon = data.coord.lon
     mahal.value = lat.toFixed(2)+", "+lon.toFixed(2)
@@ -152,7 +152,7 @@ function showIcon(i) {
     const URL = "https://openweathermap.org/img/w/"
     var img = new Image;
     img.onload = function(){
-      myCanvas.getContext("2d").drawImage(img, 30,30,50,50);
+      canvas.getContext("2d").drawImage(img, 30,30,50,50);
     };
     img.src =  URL+i+".png";
     document.querySelector('link').href = icon.src
