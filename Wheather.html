@@ -67,12 +67,11 @@
 
 <script>
 "use strict";
-function toHM(t) { // t in seconds -- convert to minutes
-    //number of hours since midnight, in local time
-    let h = (t%86400)/3600  // 0<=h<24
-    let m = (h%1)*60        // 0<=m<60
+function toHM(t) { 
+    let h = (t%86400)/3600  
+    let m = (h%1)*60       
     let twoDigits = t => (t<10? '0' : '')+Math.trunc(t)
-    return twoDigits(h)+":"+twoDigits(m+0.5) //round
+    return twoDigits(h)+":"+twoDigits(m+0.5) 
 }
 
 window.onload = function() {
@@ -86,8 +85,8 @@ async function toJSON(url) {
     if (!r.ok) error(r.statusText)
     return r.json()
 }
-// Location
-var lat, lon;  //global values
+
+var lat, lon;  
 async function askLocation() {
     let name = 'geolocation'
     let result = await navigator.permissions.query({name})
@@ -99,18 +98,18 @@ async function askLocation() {
         .getCurrentPosition(getLocation1, error);
     }
 }
-function getLocation2(p) { //Approximate
+function getLocation2(p) { 
     console.log("ipinfo.io", p.city)
     let [x, y] = p.loc.split(',')
     lat = Number(x); lon = Number(y); 
     askWeather()
 }
-function getLocation1(p) { //Accurate
+function getLocation1(p) { 
     console.log("getCurrentPosition")
     lat = p.coords.latitude; lon = p.coords.longitude;
     askWeather()
 }
-// Weather
+
 var accessKey;
 async function askWeather() {
     console.log(lat, lon); 
@@ -138,7 +137,7 @@ async function askWeather() {
     let pres = (0.750062*data.main.pressure).toFixed(0)
     const WIND = ['N','NE','E','SE','S','SW','W','NW','N']
     let d = (data.wind.deg/45).toFixed(0)
-    detay.innerText = hh  //+'\n'+yy +'\n['+mahal.value+"]"
+    detay.innerText = hh 
         +'\nWind  '+wind+' km/h '+WIND[d]
         +'\nPressure  '+pres+' mm'
         +'\nHumidity  %'+data.main.humidity
@@ -160,18 +159,17 @@ function showIcon(i) {
 }
 function convert(kelvin){
     return (kelvin - 273.15);
-    //return celsius*1.8 + 32
+    
 }
-// Interaction
+
 function askUser() {
     let k = prompt('Please enter openweather key:')
     if (!k) error('You need an API key')
     return k
 }
 function error(e) {
-    main.style.display = "none"; //hide
-    //refs.style.display = "none";
-    err.style.display = ''; //show
+    main.style.display = "none"; 
+    err.style.display = ''; 
     throw e
 }
 function getAPIkey() {
@@ -183,7 +181,7 @@ function getAPIkey() {
            localStorage.keys = JSON.stringify(keys)
         }
         accessKey = keys.openweather
-    } else { //cannot use localStorage
+    } else { 
         accessKey = askUser()
     }
 }
