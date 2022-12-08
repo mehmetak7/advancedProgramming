@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta name="viewport" content="width=device-width">
-  <link rel="icon" href="../images/icon192.png">
+  <link rel="icon" href="https://blm305.github.io/2021/images/icon192.png">
   <title>Open Weather</title>
   <style>
     body {
@@ -22,51 +21,49 @@
         font-size: 14px;
     }
     .dar { width: 42%; }
-    #main {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 20px;
-        text-align: center;    
-        background: #9cf;
-        font-size: 24px;
-        margin: 0;
-    }
+
     #yer { margin: 10px; }
     #err { color:red }
-    #kod { margin-left: 8px; }
+
   </style>
 </head>
 
 <body>
 <div>
-  Lat/Lon <input id=mahal type=text value="41 29">
+  Lat/Lon <input id="mahal" type="text" value="41 29">
 </div>
 
-<div id=main>
-<p id=yer>location</p>
-<p><img id=icon>
-<span id=hava>weather</span></p>
+<canvas id="myCanvas" width="450" height="100" style="border:7px solid #6f7fb26c; background-color:rgb(190, 146, 136);text-align: center;">
+  <img id="imgCanvas"> 
+</canvas>
+
+<div id="main" style="display:none">
+<p id="yer">location</p>
+<p><img id="icon">
+<span id="hava">weather</span></p>
 </div>
 
-<div class=dar>
+
+<div class="dar">
   <b>Detail</b>
-  <pre id=detay>detail</pre>
+  <pre id="detay">detail</pre>
 </div>
-<div class=dar>
+<div class="dar">
   <b>Sun</b>
-  <pre id=gunes>sunrise</pre>
+  <pre id="gunes">sunrise</pre>
 </div>
+<hr>
 <div>
-<p id=err>You need an API key for openweathermap.org 
-  <a href="https://home.openweathermap.org/users/sign_up" 
-   target="NewTab">here</a> 
+<p id="err" style="">You need an API key for openweathermap.org 
+  <a href="https://openweathermap.org/appid" target="NewTab">here</a> 
 </p>
 </div>
-<hr />
-<div id=kod>
-    <b>Sample code</b>
-    <pre id=sample></pre>
-</div>
+
+
+  <b>Sample code</b>
+  <pre
+    id="sample"></pre>
+  <hr>
 
 <script>
 "use strict";
@@ -77,9 +74,16 @@ function toHM(t) { // t in seconds -- convert to minutes
     let twoDigits = t => (t<10? '0' : '')+Math.trunc(t)
     return twoDigits(h)+":"+twoDigits(m+0.5) //round
 }
+
+window.onload = function() {
+  const c = document.getElementById("myCanvas");
+  const ctx = c.getContext("2d");
+  ctx.font = "20px Georgia";
+}
+
 async function toJSON(url) {
     let r = await fetch(url)
-    if (!r.ok) error(r.status)
+    if (!r.ok) error(r.statusText)
     return r.json()
 }
 // Location
@@ -110,20 +114,24 @@ function getLocation1(p) { //Accurate
 var accessKey;
 async function askWeather() {
     console.log(lat, lon); 
-    let u = "https://api.openweathermap.org/data/2.5/weather?"
-             +"lat="+lat+"&lon="+lon+"&APPID="+accessKey;
+    const U = "https://api.openweathermap.org/data/2.5/weather?"
+    let url = U+"lat="+lat+"&lon="+lon+"&APPID="+accessKey;
     hava.innerText = "getting weather"
     detay.innerText = ''
     gunes.innerText = ''
-    let data = await toJSON(u)
-//  fetch(u).then(r => r.json()).then(showWeather)
-// }
-// function showWeather(data) {
+    let data = await toJSON(url)
+  fetch(url).then(r => r.json()).then(showWeather)
+ }
+ function showWeather(data) {
     let w = data.weather[0]; showIcon(w.icon)
     let celsius = convert(data.main.temp).toFixed(0)
     let hh = w.main+"  "+celsius+"°", {sys} = data
     let yy = data.name+', '+sys.country
-    hava.innerText = hh; yer.innerText = yy
+    
+    myCanvas.getContext("2d").clearRect(0,0,myCanvas.width , myCanvas.height);
+    myCanvas.getContext("2d").fillText(hh, 150,70);
+    myCanvas.getContext("2d").fillText(yy, 150,40);
+    
     lat = data.coord.lat; lon = data.coord.lon
     mahal.value = lat.toFixed(2)+", "+lon.toFixed(2)
     let wind = (3.6*data.wind.speed).toFixed(0)
@@ -142,8 +150,12 @@ async function askWeather() {
     console.log(hh, yy, 'Wind '+data.wind.deg+'° '+WIND[d])
 }
 function showIcon(i) {
-    const u = "https://openweathermap.org/img/w/"
-    icon.src = u+i+".png"
+    const URL = "https://openweathermap.org/img/w/"
+    var img = new Image;
+    img.onload = function(){
+      myCanvas.getContext("2d").drawImage(img, 30,30,50,50);
+    };
+    img.src =  URL+i+".png";
     document.querySelector('link').href = icon.src
 }
 function convert(kelvin){
@@ -175,8 +187,8 @@ function getAPIkey() {
         accessKey = askUser()
     }
 }
-err.style.display = "none"
-getAPIkey(); askLocation()
+    err.style.display = "none"
+    getAPIkey(); askLocation()
 mahal.onkeyup = e => {
   let t = e.target
   if (e.keyCode === 13) {
@@ -185,8 +197,12 @@ mahal.onkeyup = e => {
   }
   if (e.keyCode === 27) t.blur()
 }
-sample.innerText = askWeather
+
+sample.innerText = window.onload + "\n" + showWeather + "\n" + showIcon;
+  
+
 </script>
 
-</body>
-</html>
+
+
+</body></html>
