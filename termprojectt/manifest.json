@@ -1,0 +1,13 @@
+{
+    "name": "Mayın Tarlası",
+    "start_url": "TermProject.html",
+    "display": "standalone",
+    "background_color": "green",
+    "icons": [
+      {
+        "src": "may.png",
+        "sizes": "192x192",
+        "type": "image/png"
+  }
+  ]
+  }
