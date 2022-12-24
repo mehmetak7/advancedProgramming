@@ -16,7 +16,7 @@ async function getData(){
         images[i] = new Image();
         //images[i].src = 'Walk (' + i.toString() + ').png';
     
-      await  fetch('https://mehmetak7.github.io/mehmetak/HWimages/'+'Walk (' + i.toString() + ').png').then(res=>res.blob())
+      await  fetch('https://mehmetak7.github.io/advancedProgramming/HWimages/'+'Walk (' + i.toString() + ').png').then(res=>res.blob())
                                                  .then(blob => {
                                                     let objectURL = URL.createObjectURL(blob);
                                                     images[i].src = objectURL;
