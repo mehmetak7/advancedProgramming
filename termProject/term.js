@@ -3,18 +3,18 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
 var x = canvas.width / 2;
-var y = canvas.height - 30; 
+var y = canvas.height - 30;
 
 var dx = 2;
 var dy = -2;
-var ballRadius = 10;
-var paddleHeight = 10;
-var paddleWidth = 75;
+var ballRadius = 12;
+var paddleHeight = 15;
+var paddleWidth = 120;
 var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
-var brickRowCount = 3;
-var brickColumnCount = 5;
+var brickRowCount = 5;
+var brickColumnCount = 8;
 var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
@@ -35,24 +35,32 @@ for (c = 0; c < brickColumnCount; c++) {
   }
 }
 
-document.addEventListener("keydown", keyDownHandler);
-document.addEventListener("keyup", keyUpHandler);
+// document.addEventListener("keydown", keyDownHandler);
+// document.addEventListener("keyup", keyUpHandler);
 
-function keyDownHandler(e) {
-  if (e.keyCode === 39) {
-    rightPressed = true;
-  } else if (e.keyCode === 37) {
-    leftPressed = true;
-  }
+function moveleft() {
+    paddleX -= 20;
 }
 
-function keyUpHandler(e) {
-  if (e.keyCode === 39) {
-    rightPressed = false;
-  } else if (e.keyCode === 37) {
-    leftPressed = false;
-  }
+function moveright() {
+    paddleX += 20;
 }
+
+// function keyDownHandler(e) {
+//   if (e.keyCode === 39) {
+//     rightPressed = true;
+//   } else if (e.keyCode === 37) {
+//     leftPressed = true;
+//   }
+// }
+
+// function keyUpHandler(e) {
+//   if (e.keyCode === 39) {
+//     rightPressed = false;
+//   } else if (e.keyCode === 37) {
+//     leftPressed = false;
+//   }
+// }
 
 function drawBricks() {
   for (c = 0; c < brickColumnCount; c++) {
@@ -157,16 +165,16 @@ function draw() {
     paddleX -= 7;
   }
 
-  x += dx; 
-  y += dy; 
+  x += dx;
+  y += dy;
   requestAnimationFrame(draw);
 }
-document.addEventListener("mousemove", mouseMoveHandler);
+//document.addEventListener("mousemove", mouseMoveHandler);
 
-function mouseMoveHandler(e) {
-  var relativeX = e.clientX - canvas.offsetLeft;
-  if (relativeX > 0 + paddleWidth / 2 && relativeX < canvas.width - paddleWidth / 2) {
-    paddleX = relativeX - paddleWidth / 2;
-  }
-}
+// function mouseMoveHandler(e) {
+//   var relativeX = e.clientX - canvas.offsetLeft;
+//   if (relativeX > 0 + paddleWidth / 2 && relativeX < canvas.width - paddleWidth / 2) {
+//     paddleX = relativeX - paddleWidth / 2;
+//   }
+// }
 draw();

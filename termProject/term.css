@@ -4,6 +4,9 @@
   }
   #myCanvas {
     background: #eee;
-    display: block;
     margin: 0 auto;
+  }
+  #body{
+    margin: 0 auto;
+    display: flex;
   }
