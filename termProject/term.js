@@ -150,7 +150,7 @@ function draw() {
     } else {
       lives--;
       if (!lives) {
-        document.getElementById('result').innerText='**YOU WIN**';
+        document.getElementById('result').innerText='**YOU LOST**';
         //alert("GAME OVER");
         //document.location.reload();
         lives = 0;
