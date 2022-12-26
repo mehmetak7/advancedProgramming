@@ -35,32 +35,36 @@ for (c = 0; c < brickColumnCount; c++) {
   }
 }
 
-// document.addEventListener("keydown", keyDownHandler);
-// document.addEventListener("keyup", keyUpHandler);
+document.addEventListener("keydown", keyDownHandler);
+document.addEventListener("keyup", keyUpHandler);
+
+function reset() {
+  document.location.reload();
+}
 
 function moveleft() {
-    paddleX -= 20;
+  paddleX -= 20;
 }
 
 function moveright() {
-    paddleX += 20;
+  paddleX += 20;
 }
 
-// function keyDownHandler(e) {
-//   if (e.keyCode === 39) {
-//     rightPressed = true;
-//   } else if (e.keyCode === 37) {
-//     leftPressed = true;
-//   }
-// }
+function keyDownHandler(e) {
+  if (e.keyCode === 39) {
+    rightPressed = true;
+  } else if (e.keyCode === 37) {
+    leftPressed = true;
+  }
+}
 
-// function keyUpHandler(e) {
-//   if (e.keyCode === 39) {
-//     rightPressed = false;
-//   } else if (e.keyCode === 37) {
-//     leftPressed = false;
-//   }
-// }
+function keyUpHandler(e) {
+  if (e.keyCode === 39) {
+    rightPressed = false;
+  } else if (e.keyCode === 37) {
+    leftPressed = false;
+  }
+}
 
 function drawBricks() {
   for (c = 0; c < brickColumnCount; c++) {
@@ -106,8 +110,10 @@ function collisionDetection() {
           b.status = 0;
           score++;
           if (score === brickRowCount * brickColumnCount) {
-            alert("YOU WIN!");
-            document.location.reload();
+            //alert("YOU WIN!");
+            document.getElementById('result').innerText='**YOU WIN**';
+            // document.location.reload();
+            return;
           }
         }
       }
@@ -144,8 +150,11 @@ function draw() {
     } else {
       lives--;
       if (!lives) {
-        alert("GAME OVER");
-        document.location.reload();
+        document.getElementById('result').innerText='**YOU WIN**';
+        //alert("GAME OVER");
+        //document.location.reload();
+        lives = 0;
+        return;
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;

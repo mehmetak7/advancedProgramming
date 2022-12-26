@@ -13,12 +13,16 @@
 
 <body>
   <div style="justify-content: center; margin-left: 10%; margin-top: 8%;">
+    
+    <button id="reset" onclick="reset()">Reset</button>
+    <p id="result"> </p>
     <canvas id="myCanvas" width="820" height="550"></canvas>
     <br>
-    <div id="body" style="width:720px; float: left;margin-top: 20px; justify-content: center;">
-      <button id="buton" onmouseup="moveleft()" style="width: 400px; height: 100px; ">LEFT</button>
-      <button id="buton" onmouseup="moveright()" style="width:400px; height: 100px;">RIGHT</button>
+    <div id="body">
+      <button id="buton" onmouseup="moveleft()" >LEFT</button>
+      <button id="buton" onmouseup="moveright()">RIGHT</button>
     </div>
+    
   </div>
   <script type="text/javascript" src="../termProject/term.js">
   </script>
